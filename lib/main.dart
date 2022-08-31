@@ -17,11 +17,9 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.teal),
-      debugShowCheckedModeBanner: false,
-      home:const CameraScreen(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        theme: ThemeData(primarySwatch: Colors.teal),
+        debugShowCheckedModeBanner: false,
+        home: const CameraScreen(),
+      );
 }

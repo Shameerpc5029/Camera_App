@@ -1,5 +1,6 @@
 import 'package:camera_app/db/functions/db_functions.dart';
 import 'package:camera_app/db/model/db_model.dart';
+
 import 'package:camera_app/widgets/image_card.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -64,10 +65,8 @@ class _CameraScreenState extends State<CameraScreen> {
                 )
               : GridView.builder(
                   itemCount: galleryList.length,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 150,
-                    crossAxisSpacing: 1,
-                    mainAxisSpacing: 1,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
                   ),
                   itemBuilder: (
                     BuildContext context,
@@ -76,10 +75,39 @@ class _CameraScreenState extends State<CameraScreen> {
                     final data = galleryList[index];
                     return Padding(
                       padding: const EdgeInsets.only(
-                        top: 20,
+                        top: 5,
                       ),
-                      child: ImageCard(
-                        path: data.image,
+                      child: GridTile(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => SizedBox(
+                                  width: 100,
+                                  height: 200,
+                                  child: Card(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ImageCard(path: data.image),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Back'),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          child: ImageCard(
+                            path: data.image,
+                          ),
+                        ),
                       ),
                     );
                   },
